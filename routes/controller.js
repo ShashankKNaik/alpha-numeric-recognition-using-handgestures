@@ -42,7 +42,7 @@ exports.login=(req,res)=>{
 exports.profile=(req,res)=>{
     user.findOne({email:req.session.userId}).exec((err,data)=>{
         if(data)
-            return res.render('index.ejs',{ name:data.name, email:data.email})
+            return res.render('index.ejs',{ name:data.name, email:data.email})//
         
         else
             res.redirect('/')
