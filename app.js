@@ -14,7 +14,7 @@ const path = __dirname  + '/views'
 const PORT = process.env.PORT || 3001
 
 
-mongoURI = 'mongodb://localhost:27017/AlpaNumeric'
+mongoURI = process.env.mongoURI || 'mongodb://localhost:27017/AlpaNumeric'
 
 app.use(express.static(path))
 
