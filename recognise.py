@@ -8,4 +8,5 @@ model = joblib.load('hand_model.pkl')
 
 output=model.predict([handTest])
 
+
 print(output)
