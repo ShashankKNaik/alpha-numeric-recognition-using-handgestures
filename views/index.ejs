@@ -1,88 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="H2T">
+    <meta property="og:description" content="Convert static hand gesture to alphanumeric">
+    <meta property="og:image" content="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.kindpng.com%2Fimgv%2FoRomoh_raised-hands-png-transparent-hand-emoji-png-download%2F&psig=AOvVaw299KbkYcytUCbgm15_kRx7&ust=1652178340790000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCMDK_7ma0vcCFQAAAAAdAAAAABAb">
+    <meta property="og:url" content="">
+    <meta property="og:image:secure_url" itemprop="image" content="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.kindpng.com%2Fimgv%2FoRomoh_raised-hands-png-transparent-hand-emoji-png-download%2F&psig=AOvVaw299KbkYcytUCbgm15_kRx7&ust=1652178340790000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCMDK_7ma0vcCFQAAAAAdAAAAABAb">
+    <meta property="og:image:width" content="600">
+    <meta property="og:image:height" content="600">
+    <meta name="mobile-web-app-capable" content="yes">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet'>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" type="image/svg" href="./images/favicon.png">
+    <link rel="stylesheet" href="css/style.css">
 
-  <title>F pro</title>
+    <title>H2T - Convert hand gesture to alphanumeric</title>
 </head>
 
-<style>
-/* canvas{
-  width: 90vw;
-} */
-/* video{
-  display: none;
-} */
-.data{
-  display: none;
-}
-
-.container{
-  position: relative;
-}
-canvas,video{
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.region{
-  position: absolute;
-  border: 2px solid rgb(81, 255, 81);
-  background-color: rgba(0, 0, 0, 0);
-  width: 200px;
-  height: 400px;
-  top: 50px;
-  left: 350px;
-  box-sizing: border-box;
-}
-#output{
-  padding: 20px;
-  font-size: large;
-  font-weight: bold;
-}
-</style>
 
 <body>
-    <div class="form">
-        <div class="info">
-            <h1><i>User Information</i></h1>
-            <hr>
-            <p><b>Name : </b><%= name %></p>
-            <p><b>Email : </b><%= email %></p>
-            <br>
-            <a href="/logout">logout</a>
+    <div class="head">
+        <h2 class="ml-3" onclick="theme()" style="font-family: 'Arizonia';font-weight: 1000;">H2T</h2>
+        <button><a href="/logout">logout</a></button>
+        <span>Hi..<%= name %></span>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row align-items-start">
+          <div class="col-sm-7 left">
+              <div class="video">
+                <div class="cont">
+                  <video class="input_video" height="480" width="640"></video><br>
+                  <canvas class="output_canvas" height="120" width="160"></canvas>
+                  <div class="region"></div>
+                </div>
+              </div>
+              <div class="data" id="data"></div>
+              <button class="capture" onclick="sendData()">capture</button>
+          </div>
+          <div class="col-sm-5 right">
+            <div class="output">
+              <h3>Output :</h3>
+              <div id="output">
+              </div>
+            </div>
+          </div>
         </div>
     </div>
-  <div class="container">
-    <video class="input_video" height="480" width="640"></video><br>
-    <canvas class="output_canvas" height="120" width="160"></canvas>
-    <div class="region"></div>
-    <!-- <button onclick="startCam()">end</button> -->
-  </div>
 
-  <div class="data-container">
-    <div class="data" id="data"></div>
-    <button onclick="sendData()">capture</button>
-  </div>
-  <div>
-    <div id="output">
-
+    <div class="footer">
+        shashank Krishna Naik
     </div>
-  </div>
 </body>
+
+<script src="js/index.js">
+
+
+
+</script>
+
 
 <script>
   $.ajaxSetup({async:false})

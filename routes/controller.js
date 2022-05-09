@@ -1,6 +1,6 @@
 const user = require('../models/user.schema')
 
-exports.save = (req,res) =>{
+exports.signup = (req,res) =>{
     if(req.body.password === req.body.cpassword){
 
             let newUser = new user({
@@ -11,16 +11,15 @@ exports.save = (req,res) =>{
         
             newUser.save((err,b)=>{
                 if(err){
-                    res.render('signup.ejs',{msg:'Email already exists'})
+                    res.send('<span class="warning">Email already exists</span>')
                 }
                 else{
-                    console.log('1 record inserted')
-                    res.redirect('/login')
+                    res.send('<span class="success">Signup Success</span>')
                 }
             })
         
     }else
-        res.render('signup.ejs',{msg:'Password is not matching'})
+        res.send('<span class="warning">Password is not matching</span>')
 }
 
 exports.login=(req,res)=>{
@@ -28,18 +27,18 @@ exports.login=(req,res)=>{
         if(data){
             if(req.body.password === data.password){
                 req.session.userId = data.email
-                res.redirect('/profile')
+                res.send('success')
             }
             else
-                res.render('login.ejs',{msg:'Wrong Password'})
+                res.send('<span class="error">Wrong Password</span>')
         }
         else
-            res.render('login.ejs',{msg:'Signup before login'})
+            res.send('<span class="warning">Signup before login</span>')
         
     })
 }
 
-exports.profile=(req,res)=>{
+exports.index=(req,res)=>{
     user.findOne({email:req.session.userId}).exec((err,data)=>{
         if(data)
             return res.render('index.ejs',{ name:data.name, email:data.email})//

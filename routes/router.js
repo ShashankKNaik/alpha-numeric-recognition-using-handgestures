@@ -4,20 +4,20 @@ module.exports = (app) => {
 
     router.get("/",(req,res) =>{
         if(req.session.userId == undefined)	
-            res.render('signup.ejs',{msg:''})
+            res.render('home.ejs')
         else
-            res.redirect('/profile')
+            res.redirect('/index')
     })
     
     router.get("/login",(req,res) =>{
-        res.render('login.ejs',{msg:''})
+        res.render('login.ejs')
     })
-
-    router.post('/',controller.save)
 
     router.post('/login',controller.login)
 
-    router.get('/profile',controller.profile)
+    router.post('/signup',controller.signup)
+
+    router.get('/index',controller.index)
 
     router.get('/logout',controller.logout)
 

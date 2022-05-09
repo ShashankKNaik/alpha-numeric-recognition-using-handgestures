@@ -13,7 +13,6 @@ const path = __dirname  + '/views'
 
 const PORT = process.env.PORT || 3001
 
-
 mongoURI = process.env.mongoURI || 'mongodb://localhost:27017/AlpaNumeric'
 
 app.use(express.static(path))
@@ -54,7 +53,7 @@ app.use(session({
 		mongoUrl:mongoURI
 	}),
 	cookie:{
-		maxAge: 1000*60*60*24*7 // 7 Days
+		maxAge: 1000*60*60*24 // 1 Days
 	}
 }))
 
@@ -91,6 +90,10 @@ app.post('/home',(req,res)=>{
 
 
 require('./routes/router')(app) // calling the function which is in router.js file
+
+app.get('*',(req,res)=>{
+	res.redirect('/')
+})
 
 app.listen(PORT,()=>{
 	console.log('(ctrl + click) http://localhost:3001/')
