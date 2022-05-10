@@ -53,12 +53,14 @@
               </div>
               <div class="data" id="data"></div>
               <button class="capture" onclick="sendData()">capture</button>
+              <button class="capture" onclick="cle()">clear</button>
+              <button class="capture" onclick="del()">delete</button>
           </div>
           <div class="col-sm-5 right">
             <div class="output">
               <h3>Output :</h3>
-              <div id="output">
-              </div>
+              <p id="output">
+              </p>
             </div>
           </div>
         </div>
@@ -93,6 +95,14 @@
                   }
                 }
     )
+  }
+
+  function cle(){
+    $('#output').html("")
+  }
+  function del(){
+    let val=$('#output').html()
+    $('#output').html(val.slice(0,-1))
   }
 </script>
 
