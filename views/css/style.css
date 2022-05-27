@@ -72,7 +72,7 @@ button>a,a:hover{
 .footer{
     background-color: #d7d7d7;
     padding: 8px;
-    color: #999999;
+    color: #5c5c5c;
     margin-top: 50px;
 }
 .capture{
@@ -129,6 +129,17 @@ button>a,a:hover{
 .error{
     color: red;
 }
+.left-footer,.right-footer{
+    width: 100%;
+    padding: 10px;
+}
+.left-footer{
+    text-align: left;
+}
+.right-footer{
+    text-align: right;
+}
+
 @media screen and (max-width:575px) {
     .img{
         display: none;
