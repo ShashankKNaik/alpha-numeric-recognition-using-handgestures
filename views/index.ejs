@@ -57,6 +57,9 @@
               <button class="capture" onclick="del()">delete</button>
           </div>
           <div class="col-sm-5 right">
+            <div class="mt-5">
+              food Mode : <input type="checkbox" name="food" id="food">
+            </div>
             <div class="output">
               <h3>Output :</h3>
               <p id="output">
@@ -90,6 +93,12 @@ Mahadeva Swamy
 
 <script>
   $.ajaxSetup({async:false})
+
+  var foodData ={
+    A:"Apple Juice",
+    B:"Burger" 
+  }  
+
   function sendData(){
     data = $('#data').html()
     $.post('/home',{
@@ -100,6 +109,7 @@ Mahadeva Swamy
                     alert('error');
                   else{
                     console.log("res: "+data)
+                    if($("#food")[0].checked) data = foodData[data]
                     let val=$('#output').html()
                     $('#output').html(val+data)
                   }
@@ -173,7 +183,6 @@ Array.prototype.inArray = function (value)
         lmList=lmList.toString()
         console.log(lmList)
         $("#data").html(lmList)
-        console.log("dddd")
       }
     }
     canvasCtx.restore();
