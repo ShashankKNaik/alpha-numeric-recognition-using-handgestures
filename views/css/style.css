@@ -158,4 +158,7 @@ button>a,a:hover{
         margin-top: 20px;
         width: 100%;
     } 
+    .output{
+        width: 500px;
+    }
 }
